@@ -12,6 +12,7 @@ function init() {
 }
 
 
+
 function showInfo(data, tabletop) {
   alert('Successfully processed!')
  var source = tabletop.sheets("Réponses au formulaire 1").elements
