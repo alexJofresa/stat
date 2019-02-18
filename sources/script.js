@@ -54,26 +54,17 @@ function convUnixToMomentDate(msDate){
   //return moment(strDate.values);
 }
 
-// function dateToStr(Datein, mode){
-//   //mdate=new Date(Datein.values)
-//   mdate=reparseDate(Datein);
-
-  
-//   var year   = mdate.getFullYear();
-//   var month   = mdate.getMonth();
-//   var day   = mdate.getDay();
-//   var hours   = mdate.getHours();
-//   var minutes = mdate.getMinutes();
-//   var seconds = mdate.getSeconds();
-
-//   if (mode=1) {
-//     return (hours +":"+ minutes)
-
-//   } else{
-//     return (day+"/"+month+"/"+day+" "+hours +":"+ minutes)
-
-//   }
-// }
+ function findlastNotNull(vectorIn){
+   vector=vectorIn.values
+   lst_val=[]
+    for(var i in vector)
+    {
+        if(vector[i]>0){
+          lst_val.push(vector[i]);
+        }
+    }
+    return lst_val.slice(-1)[0] 
+}
 
 function forceToDate(datestr){
   return new Date(datestr);
@@ -252,6 +243,10 @@ function traitement_ojourdhui(df1){
 
   df_today.p()
 
+  // donnée generale
+  var dernier_poids= findlastNotNull(df1.c('poids'));
+
+
   var dernier_ojdhui= convUnixToMomentDate(df_today.c('heure_ms').s(-1));
   var ms = moment_now.diff(dernier_ojdhui);
   var d = moment.duration(ms);
@@ -261,6 +256,7 @@ function traitement_ojourdhui(df1){
   var nb_bib_ojdhui   = df_today.c('bib').sum();
   var nb_total_ojdhui = nb_seins_ojdhui+ nb_bib_ojdhui;
   var qte_ojdhui      = df_today.c('qte_tt').sum();
+  var qte_lait_tire      = df_today.c('tire_lait').sum();
 
   var dernier_ojdhui_format  = dernier_ojdhui.format('kk:mm');
   var temps_depuis_dernier_ojdhui = d.get("hours") +":"+ d.get("minutes") ;
@@ -269,12 +265,23 @@ function traitement_ojourdhui(df1){
   
   modifHtmlTableByID("dernier_enregistrement",dernier_enregistrement)
 
-  modifHtmlTableByID("nb_seins_ojdhui",nb_seins_ojdhui)
-  modifHtmlTableByID("nb_bib_ojdhui",nb_bib_ojdhui)
-  modifHtmlTableByID("nb_total_ojdhui",nb_total_ojdhui)
-  modifHtmlTableByID("qte_ojdhui",qte_ojdhui)
-  modifHtmlTableByID("dernier_ojdhui_format",dernier_ojdhui_format)
-  modifHtmlTableByID("temps_depuis_dernier_ojdhui",temps_depuis_dernier_ojdhui)
+  modifHtmlTableByID("nb_seins_ojdhui",nb_seins_ojdhui);
+  modifHtmlTableByID("nb_bib_ojdhui",nb_bib_ojdhui);
+  modifHtmlTableByID("nb_total_ojdhui",nb_total_ojdhui);
+  modifHtmlTableByID("qte_ojdhui",qte_ojdhui);
+  modifHtmlTableByID("qte_lait_tire",qte_lait_tire);
+  modifHtmlTableByID("dernier_ojdhui_format",dernier_ojdhui_format);
+  modifHtmlTableByID("temps_depuis_dernier_ojdhui",temps_depuis_dernier_ojdhui);
+  modifHtmlTableByID("dernier_poids",dernier_poids);
+
+  var nb_adrigyl_ojdhui = df_today.c('adrigyl').sum() ;
+  var nb_selles_ojdhui = df_today.c('selle').sum() ;
+  var nb_urines_ojdhui = df_today.c('urine').sum() ;
+
+  modifHtmlTableByID("nb_adrigyl_ojdhui",nb_adrigyl_ojdhui);
+  modifHtmlTableByID("nb_selles_ojdhui",nb_selles_ojdhui);
+  modifHtmlTableByID("nb_urines_ojdhui",nb_urines_ojdhui);
+
 }
 
 

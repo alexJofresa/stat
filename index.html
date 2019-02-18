@@ -8,28 +8,33 @@
             <script src="sources/moment.min.js"></script>
             <script src="sources/script.js"></script> 
             <script src='sources/local_tabletop.js'></script>
+            <meta http-equiv=“Pragma” content=”no-cache”>
+            <meta http-equiv=“Expires” content=”-1″>
+            <meta http-equiv=“CACHE-CONTROL” content=”NO-CACHE”>
     </head>
 
 
 
     <body>
     
-    <h2>Tableau de bord V0.2</h2>
+    <h2>Tableau de bord V0.2.1</h2>
     <div id="div_top"> 
             <button onclick="miseajour()">Mettre à jour</button> 
-            <table id="table_dernier_enregistrement" >
+            <p>
+                    <table id="table_dernier_enregistrement" >
 
-                    <tr>
-                      <td>Dernier enregistrement:</td>
-                      <td id="dernier_enregistrement"> PAS Rafraichit</td>
-                    </tr>
-            </table>
-        
-    
+                            <tr>
+                              <td>Dernier enregistrement:</td>
+                              <td id="dernier_enregistrement"> PAS Rafraichit</td>
+                            </tr>
+                    </table>
+                </p>
+
     </div>
 
     <h2>Aujourd'hui</h2>
         <div id="div_ojdhui"> 
+            <p>
                 <table id="table_alaitement_ojdhui" >
                         <tr>
                           <th colspan="2">Alaitement:</th>
@@ -51,6 +56,10 @@
                           <td id="qte_ojdhui">XX</td>
                         </tr>
                         <tr>
+                            <td>Qté Lait tiré (ml):</td>
+                            <td id="qte_lait_tire">XX</td>
+                            </tr>
+                        <tr>
                           <td>Dernier Alaitement à:</td>
                           <td id="dernier_ojdhui_format">XX<br></td>
                         </tr>
@@ -59,6 +68,32 @@
                           <td id="temps_depuis_dernier_ojdhui">XX</td>
                         </tr>
                       </table>
+                </p>
+
+                <p>
+                        <table id="table_suivi_ojdhui" >
+                                <tr>
+                                  <th colspan="2">Suivi General:</th>
+                                </tr>
+                                <tr>
+                                  <td>Adrigyl:</td>
+                                  <td id="nb_adrigyl_ojdhui">XX</td>
+                                </tr>
+                                <tr>
+                                  <td>Selles:</td>
+                                  <td id="nb_selles_ojdhui">XX</td>
+                                </tr>
+                                <tr>
+                                  <td>Urines:</td>
+                                  <td id="nb_urines_ojdhui">XX</td>
+                                </tr>
+                                <tr>
+                                    <td>Dernier poids (kg):</td>
+                                    <td id="dernier_poids">XX</td>
+                                </tr>
+                            
+                              </table>
+                        </p>
                       
                       
                
