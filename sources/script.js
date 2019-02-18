@@ -5,10 +5,19 @@
 // Declarartion des variable globale:
 var jd = jsdataframe;
 
+//===========================================
 // Declarartion des fonctions:
+//===========================================
+
+// -------------------------------------------
+// Function lié au buttun de la page html
+
 function miseajour() {
     init()
   }
+
+// -------------------------------------------
+// Function pour recuperé les donné
 
 var publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/1WfqCKaGxmxf351-L6uq836TQhI4JZzjgG_BOtcrd6Cc/edit?usp=sharing';  //jojo
 
@@ -25,13 +34,12 @@ function showInfo(data, tabletop) {
   alert('Successfully processed!')
  var source = tabletop.sheets("Réponses au formulaire 1").elements
   console.log(source)
-  df1= preparation_des_donnees(source);
-  console.log("dataframe:")
-
-  df1.p();
+  main(source)
 
 }
 
+// -------------------------------------------
+// Functions pour préparer les donnée
 
 function date_tt(dateGenerale,heure_tt) {
   // fonction qui inclue l'heure de la tété dans une format date classique
@@ -109,6 +117,20 @@ function include(strbase,searchStr){
   }
 }
 
+// -------------------------------------------
+// Function principale
+function main(data){
+  df1= preparation_des_donnees(data);
+  console.log("dataframe:")
+
+  df1.p();
+
+}
+
+
+
+// -------------------------------------------
+// Fonction diverse
 
 function preparation_des_donnees(data){
   //Preparation des données, pour plus de facilité plus tard
@@ -129,7 +151,7 @@ function preparation_des_donnees(data){
   lst_qte_tt=[]   //Int
   lst_temperature=[]  //Float
   lst_tire_lait=[] //Int
-  lst_ferostane=[]  // bool
+  //lst_ferostane=[]  // bool
 
 
 
@@ -156,20 +178,13 @@ function preparation_des_donnees(data){
 
     //lst_type_alim.push(data[line]["Comment s'est il alimenté?"],"Sein");    inutile
     lst_alim_seins.push(include(data[line]["Comment s'est il alimenté?"],"Sein"));
-    lst_alim_bib.push(include(data[line]["Comment s'est il alimenté?"],"Bib"));
-    
-
-
-
-    // créée le tableau general
+    lst_alim_bib.push(include(data[line]["Comment s'est il alimenté?"],"Bib")); 
   }
 
-  var df = jd.df([lst_date,lst_heure_tt,lst_alim_seins,lst_alim_bib, lst_adrigyl, lst_qte_tt,lst_tire_lait,lst_temperature,lst_poids], 
-                 ['date','heure_tt','sein','bib', 'adrigyl', 'qte_tt','tire_lait','temp','poids']);
+  // créée le tableau general
+  var df = jd.df([lst_date,lst_heure_tt,lst_alim_seins,lst_alim_bib, lst_adrigyl, lst_qte_tt,lst_tire_lait,lst_temperature,lst_poids,lst_urine,lst_selle], 
+                 ['date','heure_tt','sein','bib', 'adrigyl', 'qte_tt','tire_lait','temp','poids','urine','selle']);
   return df
-
-    
-
 }
 
 
@@ -191,3 +206,4 @@ function preparation_des_donnees(data){
 // Tire lait en ml: "190"
 // Urines: "Oui"
 
+// info dataframe : https://github.com/osdat/jsdataframe/wiki
