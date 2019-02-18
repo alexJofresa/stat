@@ -43,11 +43,40 @@ function showInfo(data, tabletop) {
 
 function date_tt(dateGenerale,heure_tt) {
   // fonction qui inclue l'heure de la tété dans une format date classique
-
- 
     const [hours, minute ,second] = heure_tt.split(":");
-    return dateGenerale.setHours(hours,minute,second);
+    return  new Date(dateGenerale.setHours(hours,minute,second));
 
+}
+
+function convUnixToMomentDate(msDate){
+  var momentDate=moment.unix(msDate.values/1000);
+  return momentDate;
+  //return moment(strDate.values);
+}
+
+// function dateToStr(Datein, mode){
+//   //mdate=new Date(Datein.values)
+//   mdate=reparseDate(Datein);
+
+  
+//   var year   = mdate.getFullYear();
+//   var month   = mdate.getMonth();
+//   var day   = mdate.getDay();
+//   var hours   = mdate.getHours();
+//   var minutes = mdate.getMinutes();
+//   var seconds = mdate.getSeconds();
+
+//   if (mode=1) {
+//     return (hours +":"+ minutes)
+
+//   } else{
+//     return (day+"/"+month+"/"+day+" "+hours +":"+ minutes)
+
+//   }
+// }
+
+function forceToDate(datestr){
+  return new Date(datestr);
 }
 
 function strToDate(dateStr) {
@@ -117,13 +146,24 @@ function include(strbase,searchStr){
   }
 }
 
+function inspect(v){
+  console.log("\n inspect: ")
+  console.log(v);
+  console.log(typeof v);
+  console.log("---------- ")
+
+}
+
 // -------------------------------------------
 // Function principale
 function main(data){
-  df1= preparation_des_donnees(data);
-  console.log("dataframe:")
+  var df_generale= preparation_des_donnees(data);
+  
+  console.log("Dataframe principale:")
+  df_generale.p();  //Affiche la dataframe principale
+  df_generale.dtypes().p();
 
-  df1.p();
+  traitement_ojourdhui(df_generale)
 
 }
 
@@ -137,6 +177,7 @@ function preparation_des_donnees(data){
 
   //On crée de nouvelle liste vide que l'on va remplir plus tard
   lst_heure_tt=[]
+  lst_heure_tt_epoch=[]
   lst_horodateur=[]   
   lst_date=[]    //Date
   lst_adrigyl=[]  //Bool
@@ -167,6 +208,7 @@ function preparation_des_donnees(data){
 
     lst_date.push(date_enregistrement);
     lst_heure_tt.push(date_tt(date_enregistrement,data[line]["Heure de la tété"]));
+    lst_heure_tt_epoch.push(date_tt(date_enregistrement,data[line]["Heure de la tété"]).getTime())
     
     //lst_qte_selle.push(adaptQteSelle(data[line]["Quantité de selles"]));   inutile
 
@@ -182,13 +224,46 @@ function preparation_des_donnees(data){
   }
 
   // créée le tableau general
-  var df = jd.df([lst_date,lst_heure_tt,lst_alim_seins,lst_alim_bib, lst_adrigyl, lst_qte_tt,lst_tire_lait,lst_temperature,lst_poids,lst_urine,lst_selle], 
-                 ['date','heure_tt','sein','bib', 'adrigyl', 'qte_tt','tire_lait','temp','poids','urine','selle']);
+  var df = jd.df([lst_date,lst_heure_tt,lst_heure_tt_epoch,lst_alim_seins,lst_alim_bib, lst_adrigyl, lst_qte_tt,lst_tire_lait,lst_temperature,lst_poids,lst_urine,lst_selle], 
+                 ['date','heure_tt','heure_ms','sein','bib', 'adrigyl', 'qte_tt','tire_lait','temp','poids','urine','selle']);
   return df
 }
 
+function traitement_ojourdhui(df1){
+  console.log("Traitement aujourdhui :")
+
+  // Compte le nombre d alaitement aujourdhui
+  var date_minuit = new Date();
+  date_minuit.setHours(0,0,0,0);
+
+  var date_now = new Date();
+  var moment_now= moment.unix(date_now.getTime()/1000)
 
 
+
+  var df_today=  df1.s(df1.c('heure_tt').gt(date_minuit))   //df_today est donc une nouvelle dataframe avec  les valeur uniquement d 'aujourdhui
+
+  df_today.p()
+
+  var dernier_ojdhui= convUnixToMomentDate(df_today.c('heure_ms').s(-1));
+  var ms = moment_now.diff(dernier_ojdhui);
+  var d = moment.duration(ms);
+
+
+  var nb_seins_ojdhui = df_today.c('sein').sum() ;
+  var nb_bib_ojdhui   = df_today.c('bib').sum();
+  var nb_total_ojdhui = nb_seins_ojdhui+ nb_bib_ojdhui;
+  var qte_ojdhui      = df_today.c('qte_tt').sum();
+
+  var dernier_ojdhui_format  = dernier_ojdhui.format('kk:mm');
+  var temps_depuis_dernier_ojdhui = d.get("hours") +":"+ d.get("minutes") ;
+
+  console.log({nb_seins_ojdhui,nb_bib_ojdhui,nb_total_ojdhui,qte_ojdhui,dernier_ojdhui_format,temps_depuis_dernier_ojdhui})
+
+}
+
+
+window.addEventListener('DOMContentLoaded', init)
 
 // 407:
 // Adrigyl: ""
