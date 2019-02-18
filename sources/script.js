@@ -31,7 +31,7 @@ function init() {
 
 
 function showInfo(data, tabletop) {
-  alert('Successfully processed!')
+  console.log('Successfully processed!')
  var source = tabletop.sheets("Réponses au formulaire 1").elements
   console.log(source)
   main(source)
@@ -154,6 +154,13 @@ function inspect(v){
 
 }
 
+
+function modifHtmlTableByID( mId,mValue) {
+  var x = document.getElementById(mId)
+  x.innerText=String(mValue)
+  inspect(x)
+
+}
 // -------------------------------------------
 // Function principale
 function main(data){
@@ -249,7 +256,7 @@ function traitement_ojourdhui(df1){
   var ms = moment_now.diff(dernier_ojdhui);
   var d = moment.duration(ms);
 
-
+  var dernier_enregistrement= dernier_ojdhui.format('DD/MM/YY kk:mm');
   var nb_seins_ojdhui = df_today.c('sein').sum() ;
   var nb_bib_ojdhui   = df_today.c('bib').sum();
   var nb_total_ojdhui = nb_seins_ojdhui+ nb_bib_ojdhui;
@@ -259,7 +266,15 @@ function traitement_ojourdhui(df1){
   var temps_depuis_dernier_ojdhui = d.get("hours") +":"+ d.get("minutes") ;
 
   console.log({nb_seins_ojdhui,nb_bib_ojdhui,nb_total_ojdhui,qte_ojdhui,dernier_ojdhui_format,temps_depuis_dernier_ojdhui})
+  
+  modifHtmlTableByID("dernier_enregistrement",dernier_enregistrement)
 
+  modifHtmlTableByID("nb_seins_ojdhui",nb_seins_ojdhui)
+  modifHtmlTableByID("nb_bib_ojdhui",nb_bib_ojdhui)
+  modifHtmlTableByID("nb_total_ojdhui",nb_total_ojdhui)
+  modifHtmlTableByID("qte_ojdhui",qte_ojdhui)
+  modifHtmlTableByID("dernier_ojdhui_format",dernier_ojdhui_format)
+  modifHtmlTableByID("temps_depuis_dernier_ojdhui",temps_depuis_dernier_ojdhui)
 }
 
 
