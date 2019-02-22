@@ -1,5 +1,6 @@
 // PAGE DE SCRIPT
 //18/02/2019
+// https://alexjofresa.github.io/stat/
 
 
 // Declarartion des variable globale:
