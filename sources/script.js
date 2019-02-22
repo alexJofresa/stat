@@ -21,6 +21,7 @@ function miseajour() {
 
 var publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/1WfqCKaGxmxf351-L6uq836TQhI4JZzjgG_BOtcrd6Cc/edit?usp=sharing';  //jojo
 
+var df_generale;
 
 function init() {
   Tabletop.init( { key: publicSpreadsheetUrl,
@@ -149,13 +150,13 @@ function inspect(v){
 function modifHtmlTableByID( mId,mValue) {
   var x = document.getElementById(mId)
   x.innerText=String(mValue)
-  inspect(x)
+  //inspect(x)
 
 }
 // -------------------------------------------
 // Function principale
 function main(data){
-  var df_generale= preparation_des_donnees(data);
+  df_generale= preparation_des_donnees(data);
   
   console.log("Dataframe principale:")
   df_generale.p();  //Affiche la dataframe principale
@@ -283,6 +284,22 @@ function traitement_ojourdhui(df1){
   modifHtmlTableByID("nb_urines_ojdhui",nb_urines_ojdhui);
 
 }
+
+function traitement_moyenne(){
+  console.log("Dans traitement moyenne")
+  df2=df_generale;  //On recupere df_generale qui declarer comme variable globale
+  var nb_days = document.getElementById("input_nb_jours").value;
+  console.log("on va faire le calcul pour: " + nb_days);
+  df2.p();
+
+  var d = new Date();
+  d.setDate(d.getDate()-nb_days);
+
+  var df_average=  df2.s(df2.c('heure_tt').gt(d))   //df_today est donc une nouvelle dataframe avec  les valeur uniquement d 'aujourdhui
+  df_average.p()
+
+}
+
 
 
 window.addEventListener('DOMContentLoaded', init)
