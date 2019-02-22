@@ -162,7 +162,8 @@ function main(data){
   df_generale.p();  //Affiche la dataframe principale
   df_generale.dtypes().p();
 
-  traitement_ojourdhui(df_generale)
+  traitement_ojourdhui(df_generale);
+  traitement_moyenne();
 
 }
 
@@ -298,17 +299,23 @@ function traitement_moyenne(){
   var df_average=  df2.s(df2.c('heure_tt').gt(d))   //df_today est donc une nouvelle dataframe avec  les valeur uniquement d 'aujourdhui
   df_average.p()
 
-  var avg_qte_tt  =df_average.c('qte_tt').sum()/nb_days;
-  var avg_nb_seins=df_average.c('sein').sum()/nb_days;
-  var avg_nb_bib  =df_average.c('bib').sum()/nb_days;
-  var avg_urine   =df_average.c('urine').sum()/nb_days;
-  var avg_selle   =df_average.c('selle').sum()/nb_days;
+  var avg_qte_tt  =(df_average.c('qte_tt').sum()/nb_days).toFixed(1);
+  var avg_nb_seins=(df_average.c('sein').sum()/nb_days).toFixed(2);
+  var avg_nb_bib  =(df_average.c('bib').sum()/nb_days).toFixed(2);
+  var avg_urine   =(df_average.c('urine').sum()/nb_days).toFixed(2);
+  var avg_selle   =(df_average.c('selle').sum()/nb_days).toFixed(2);
 
   console.log("avg_qte_tt: " + avg_qte_tt)
   console.log("avg_nb_seins: " + avg_nb_seins)
   console.log("avg_nb_bib: " + avg_nb_bib)
   console.log("avg_urine: " + avg_urine)
   console.log("avg_selle: " + avg_selle)
+
+  modifHtmlTableByID("qte_tete_avg",avg_qte_tt);
+  modifHtmlTableByID("nb_seins_avg",avg_nb_seins);
+  modifHtmlTableByID("nb_bib_avg",avg_nb_bib);
+  modifHtmlTableByID("nb_urines_avg",avg_urine);
+  modifHtmlTableByID("nb_selles_avg",avg_selle);
 
 }
 

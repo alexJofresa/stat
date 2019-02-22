@@ -98,14 +98,42 @@
 
   </div>
   <h2>Moyennes</h2>
-  <div>
-    <input type="number" id="input_nb_jours" name="Nb_de_jours" min="1" max="365" value="15">
+  <div id="div_average">
+    <p> Nombre de jours: <input type="number" id="input_nb_jours" name="Nb_de_jours" min="1" max="365" value="15">
     <button onclick="traitement_moyenne()">Calculer</button>
+    </p>
+    <div>
+      <table id="table_average">
+
+        <tr>
+          <td>Quantité tété (ml/jour):</td>
+          <td id="qte_tete_avg">XX</td>
+        </tr>
+        <tr>
+          <td>Nb seins/jour:</td>
+          <td id="nb_seins_avg">XX</td>
+        </tr>
+        <tr>
+          <td>Nb bib/jour:</td>
+          <td id="nb_bib_avg">XX</td>
+        </tr>
+        <tr>
+          <td>nb Selles/jour:</td>
+          <td id="nb_selles_avg">XX</td>
+        </tr>
+        <tr>
+          <td>nb Urines/jour:</td>
+          <td id="nb_urines_avg">XX</td>
+        </tr>
+      </table>
+    </div>
+
 
   </div>
 
   <h2>Historique</h2>
   <div id="div_historique">
+
 
   </div>
 
