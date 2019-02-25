@@ -463,3 +463,6 @@ window.addEventListener('DOMContentLoaded', init)
 // Urines: "Oui"
 
 // info dataframe : https://github.com/osdat/jsdataframe/wiki
+
+
+// mit de coté : <link rel="stylesheet" href="sources/style.css">

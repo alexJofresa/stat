@@ -3,7 +3,8 @@
 
 <head>
   <title>Stat M</title>
-  <link rel="stylesheet" href="sources/style.css">
+  
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <script src="sources/jsdataframe.js"></script>
   <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
   <script src="sources/moment.min.js"></script>
@@ -20,9 +21,9 @@
 
   <h2>Tableau de bord V0.5.0</h2>
   <div id="div_top">
-    <button onclick="miseajour()">Mettre à jour</button>
+    <button class="w3-btn w3-round-xlarge w3-deep-purple" onclick="miseajour()">Mettre à jour</button>
     <p>
-      <table id="table_dernier_enregistrement">
+      <table  class="w3-table-all w3-card-4 " id="table_dernier_enregistrement">
 
         <tr>
           <td>Dernier enregistrement:</td>
@@ -36,7 +37,7 @@
   <h2>Aujourd'hui</h2>
   <div id="div_ojdhui">
     <p>
-      <table id="table_alaitement_ojdhui">
+      <table class="w3-table-all w3-card-4 w3-large" id="table_alaitement_ojdhui">
         <tr>
           <th colspan="2">Alaitement:</th>
         </tr>
@@ -72,7 +73,7 @@
     </p>
 
     <p>
-      <table id="table_suivi_ojdhui">
+      <table  class="w3-table-all w3-card-4 w3-large" id="table_suivi_ojdhui">
         <tr>
           <th colspan="2">Suivi General:</th>
         </tr>
@@ -100,11 +101,12 @@
   </div>
   <h2>Moyennes</h2>
   <div id="div_average">
-    <p> Nombre de jours: <input type="number" id="input_nb_jours" name="Nb_de_jours" min="1" max="365" value="15">
-    <button onclick="traitement_moyenne()">Calculer</button>
+      <label class="w3-text-blue"><b>Nombre de jours:</b></label>
+    <input class="w3-input w3-border" type="number" id="input_nb_jours" name="Nb_de_jours" min="1" max="365" value="15">
+    <button class="w3-btn w3-round-xlarge w3-green" onclick="traitement_moyenne()">Calculer</button>
     </p>
     <div>
-      <table id="table_average">
+      <table class=" w3-bordered w3-table-all w3-card-4 w3-large" id="table_average">
 
         <tr>
           <td>Quantité tété [ml/jour]:</td>
