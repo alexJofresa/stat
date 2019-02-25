@@ -3,6 +3,8 @@
 // https://alexjofresa.github.io/stat/
 
 
+
+
 // Declarartion des variable globale:
 var jd = jsdataframe;
 
@@ -33,6 +35,7 @@ function init() {
 
 
 function showInfo(data, tabletop) {
+
   console.log('Successfully processed!')
  var source = tabletop.sheets("Réponses au formulaire 1").elements
   console.log(source)
@@ -50,6 +53,13 @@ function date_tt(dateGenerale,heure_tt) {
 
 }
 
+
+function jour_tt(dateGenerale) {
+  // fonction qui ne retourne que le jour format classique
+    
+    return  new Date(dateGenerale.setHours(0,0,0));
+
+}
 function convUnixToMomentDate(msDate){
   var momentDate=moment.unix(msDate.values/1000);
   return momentDate;
@@ -165,6 +175,7 @@ function main(data){
 
   traitement_ojourdhui(df_generale);
   traitement_moyenne();
+  historique_grah_qt_tt();
 
 }
 
@@ -179,6 +190,7 @@ function preparation_des_donnees(data){
   //On crée de nouvelle liste vide que l'on va remplir plus tard
   lst_heure_tt=[]
   lst_heure_tt_epoch=[]
+  lst_jour=[]
   lst_horodateur=[]   
   lst_date=[]    //Date
   lst_adrigyl=[]  //Bool
@@ -210,6 +222,7 @@ function preparation_des_donnees(data){
     lst_date.push(date_enregistrement);
     lst_heure_tt.push(date_tt(date_enregistrement,data[line]["Heure de la tété"]));
     lst_heure_tt_epoch.push(date_tt(date_enregistrement,data[line]["Heure de la tété"]).getTime())
+    lst_jour.push(jour_tt(date_enregistrement).getTime())
     
     //lst_qte_selle.push(adaptQteSelle(data[line]["Quantité de selles"]));   inutile
 
@@ -225,8 +238,8 @@ function preparation_des_donnees(data){
   }
 
   // créée le tableau general
-  var df = jd.df([lst_date,lst_heure_tt,lst_heure_tt_epoch,lst_alim_seins,lst_alim_bib, lst_adrigyl, lst_qte_tt,lst_tire_lait,lst_temperature,lst_poids,lst_urine,lst_selle], 
-                 ['date','heure_tt','heure_ms','sein','bib', 'adrigyl', 'qte_tt','tire_lait','temp','poids','urine','selle']);
+  var df = jd.df([lst_date,lst_jour,lst_heure_tt,lst_heure_tt_epoch,lst_alim_seins,lst_alim_bib, lst_adrigyl, lst_qte_tt,lst_tire_lait,lst_temperature,lst_poids,lst_urine,lst_selle], 
+                 ['date','jour','heure_tt','heure_ms','sein','bib', 'adrigyl', 'qte_tt','tire_lait','temp','poids','urine','selle']);
   return df
 }
 
@@ -320,9 +333,66 @@ function traitement_moyenne(){
 
 }
 
+function historique_grah_qt_tt() {
+  console.log("Dans historique_grah_qt_tt")
+  dfgraph=df_generale;  //On recupere df_generale qui declarer comme variable globale
+
+  var val=[]
+
+  console.log("df_tete:")
+
+  df_tete= dfgraph.s(null, ['jour', 'qte_tt'])
+
+  df_tete.p()
+
+  console.log("grouped:")
+
+  df_group=df_tete.groupApply('jour', function(dfSubset) {
+    return dfSubset.mapCols(
+      function(colVector) { return colVector.sum(); });
+  });
+  df_group.p();
+
+  for ( i=0;i < df_group.nRow();i++) {     //on parcoure toutes les donnée une a une 
+
+    // rempli chaque liste
+    xVal=df_group.at(i, ['jour']);   //df_group.c('jour').s(i).values[0]  or df_group.at(i,'jour')
+    yVal=df_group.at(i, ['qte_tt']);
+    //xVal=df_group[line].jour
+    //yVal=df_group[line].qte_tt
+    val.push({x: xVal,y: yVal})
+  }
+
+  var chart = new CanvasJS.Chart("chartContainer_qte_tt", {
+      animationEnabled: true,
+      zoomEnabled: true,
+      theme: "light2", // "light1", "light2", "dark1", "dark2"
+      title: {
+          text: "Evolution quantitée tétée (ml)"
+      },
+      axisY: {
+          title: "Volume (ml)",
+          includeZero: false
+      },
+      axisX: {
+          title: "Date"
+      },
+      data: [{
+          type: "line",
+          xValueType: "dateTime",
+          dataPoints: val             
+          
+      }]
+  });
+  chart.render();
+}
+
+
 
 
 window.addEventListener('DOMContentLoaded', init)
+
+
 
 // 407:
 // Adrigyl: ""
