@@ -3,7 +3,7 @@
 
 <head>
   <title>Stat M</title>
-  
+
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <script src="sources/jsdataframe.js"></script>
   <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
@@ -19,131 +19,141 @@
 
 <body>
 
-  <h2>Tableau de bord V0.6.0</h2>
-  <div id="div_top">
-    <button class="w3-btn w3-round-xlarge w3-deep-purple" onclick="miseajour()">Mettre à jour</button>
-    <p>
-      <table  class="w3-table-all w3-card-4 " id="table_dernier_enregistrement">
+  <div class="w3-container">
+    <h2>Tableau de bord V0.7.0</h2>
+    <div id="div_top">
+      <button class="w3-btn w3-round-xlarge w3-deep-purple w3-margin-left" onclick="miseajour()">Mettre à jour</button>
+      <p>
+        <table class="w3-table-all w3-card-4 " id="table_dernier_enregistrement">
 
-        <tr>
-          <td>Dernier enregistrement:</td>
-          <td id="dernier_enregistrement"> PAS Rafraichit</td>
-        </tr>
-      </table>
-    </p>
+          <tr>
+            <td>Dernier enregistrement:</td>
+            <td id="dernier_enregistrement"> PAS Rafraichit</td>
+          </tr>
+        </table>
+      </p>
 
-  </div>
-
-  <h2>Aujourd'hui</h2>
-  <div id="div_ojdhui">
-    <p>
-      <table class="w3-table-all w3-card-4 w3-xxlarge" id="table_alaitement_ojdhui">
-        <tr>
-          <th colspan="2">Alaitement:</th>
-        </tr>
-        <tr>
-          <td>Nb Seins:</td>
-          <td id="nb_seins_ojdhui">XX</td>
-        </tr>
-        <tr>
-          <td>Nb Bib:</td>
-          <td id="nb_bib_ojdhui">XX</td>
-        </tr>
-        <tr>
-          <td>Total Bib+Sein:</td>
-          <td id="nb_total_ojdhui">XX</td>
-        </tr>
-        <tr>
-          <td>Qté Bib [ml]:</td>
-          <td id="qte_ojdhui">XX</td>
-        </tr>
-        <tr>
-          <td>Qté Lait tiré [ml]:</td>
-          <td id="qte_lait_tire">XX</td>
-        </tr>
-        <tr>
-          <td>Dernier Alaitement à [h:m]:</td>
-          <td id="dernier_ojdhui_format">XX<br></td>
-        </tr>
-        <tr>
-          <td>Temps depuis le dernier [h:m] :</td>
-          <td id="temps_depuis_dernier_ojdhui">XX</td>
-        </tr>
-      </table>
-    </p>
-
-    <p>
-      <table  class="w3-table-all w3-card-4 w3-xxlarge" id="table_suivi_ojdhui">
-        <tr>
-          <th colspan="2">Suivi General:</th>
-        </tr>
-        <tr>
-          <td>Adrigyl:</td>
-          <td id="nb_adrigyl_ojdhui">XX</td>
-        </tr>
-        <tr>
-          <td>Selles:</td>
-          <td id="nb_selles_ojdhui">XX</td>
-        </tr>
-        <tr>
-          <td>Urines:</td>
-          <td id="nb_urines_ojdhui">XX</td>
-        </tr>
-        <tr>
-          <td>Dernier poids [kg]:</td>
-          <td id="dernier_poids">XX</td>
-        </tr>
-
-      </table>
-    </p>
-
-
-  </div>
-  <h2>Moyennes</h2>
-  <div id="div_average">
-      <label class="w3-text-blue"><b>Nombre de jours:</b></label>
-    <input class="w3-input w3-border" type="number" id="input_nb_jours" name="Nb_de_jours" min="1" max="365" value="15">
-    <button class="w3-btn w3-round-xlarge w3-green" onclick="traitement_moyenne()">Calculer</button>
-    </p>
-    <div>
-      <table class=" w3-bordered w3-table-all w3-card-4 w3-xxlarge" id="table_average">
-
-        <tr>
-          <td>Quantité tété [ml/jour]:</td>
-          <td id="qte_tete_avg">XX</td>
-        </tr>
-        <tr>
-          <td>Nb seins/jour:</td>
-          <td id="nb_seins_avg">XX</td>
-        </tr>
-        <tr>
-          <td>Nb bib/jour:</td>
-          <td id="nb_bib_avg">XX</td>
-        </tr>
-        <tr>
-          <td>nb Selles/jour:</td>
-          <td id="nb_selles_avg">XX</td>
-        </tr>
-        <tr>
-          <td>nb Urines/jour:</td>
-          <td id="nb_urines_avg">XX</td>
-        </tr>
-      </table>
     </div>
-
-
   </div>
 
-  <h2>Historique</h2>
-  <p>Note: on peut zoomer dans les graphique par selection (sur telephone c'est un peu galère).</p>
+  <div class="w3-container">
+    <h2>Aujourd'hui</h2>
+    <div id="div_ojdhui">
+      <p>
+        <table class="w3-table-all w3-card-4 w3-xlarge" id="table_alaitement_ojdhui">
+          <tr>
+            <th colspan="2">Alaitement:</th>
+          </tr>
+          <tr>
+            <td>Nb Seins:</td>
+            <td id="nb_seins_ojdhui">XX</td>
+          </tr>
+          <tr>
+            <td>Nb Bib:</td>
+            <td id="nb_bib_ojdhui">XX</td>
+          </tr>
+          <tr>
+            <td>Total Bib+Sein:</td>
+            <td id="nb_total_ojdhui">XX</td>
+          </tr>
+          <tr>
+            <td>Qté Bib [ml]:</td>
+            <td id="qte_ojdhui">XX</td>
+          </tr>
+          <tr>
+            <td>Qté Lait tiré [ml]:</td>
+            <td id="qte_lait_tire">XX</td>
+          </tr>
+          <tr>
+            <td>Dernier Alaitement à [h:m]:</td>
+            <td id="dernier_ojdhui_format">XX<br></td>
+          </tr>
+          <tr>
+            <td>Temps depuis le dernier [h:m] :</td>
+            <td id="temps_depuis_dernier_ojdhui">XX</td>
+          </tr>
+        </table>
+      </p>
 
-  
-  <div id="div_historique">
-  
+      <p>
+        <table class="w3-table-all w3-card-4 w3-xlarge" id="table_suivi_ojdhui">
+          <tr>
+            <th colspan="2">Suivi General:</th>
+          </tr>
+          <tr>
+            <td>Adrigyl:</td>
+            <td id="nb_adrigyl_ojdhui">XX</td>
+          </tr>
+          <tr>
+            <td>Selles:</td>
+            <td id="nb_selles_ojdhui">XX</td>
+          </tr>
+          <tr>
+            <td>Urines:</td>
+            <td id="nb_urines_ojdhui">XX</td>
+          </tr>
+          <tr>
+            <td>Dernier poids [kg]:</td>
+            <td id="dernier_poids">XX</td>
+          </tr>
+
+        </table>
+      </p>
+
+
+    </div>
+  </div>
+
+  <div class="w3-container">
+    <h2>Moyennes</h2>
+    <div id="div_average">
+      <label class="w3-text-blue"><b>Nombre de jours:</b></label>
+      <input class="w3-input w3-border w3-xlarge" type="number" id="input_nb_jours" name="Nb_de_jours" min="1" max="365" value="15">
+      <button class="w3-btn w3-round-xlarge w3-green  w3-margin" onclick="traitement_moyenne()">Calculer</button>
+      </p>
+      <div>
+        <table class=" w3-bordered w3-table-all w3-card-4 w3-xlarge" id="table_average">
+
+          <tr>
+            <td>Quantité tété [ml/jour]:</td>
+            <td id="qte_tete_avg">XX</td>
+          </tr>
+          <tr>
+            <td>Nb seins/jour:</td>
+            <td id="nb_seins_avg">XX</td>
+          </tr>
+          <tr>
+            <td>Nb bib/jour:</td>
+            <td id="nb_bib_avg">XX</td>
+          </tr>
+          <tr>
+            <td>nb Selles/jour:</td>
+            <td id="nb_selles_avg">XX</td>
+          </tr>
+          <tr>
+            <td>nb Urines/jour:</td>
+            <td id="nb_urines_avg">XX</td>
+          </tr>
+        </table>
+      </div>
+
+
+    </div>
+  </div>
+
+  <div class="w3-container">
+
+    <h2>Historique</h2>
+    <p>Note: on peut zoomer dans les graphique par selection (sur telephone c'est un peu galère).</p>
+
+
+    <div id="div_historique">
+
       <div id="chartContainer_qte_tt" style="height: 370px; width: 100%;"></div>
       <div id="chartContainer_poids" style="height: 370px; width: 100%;"></div>
 
 
+    </div>
   </div>
 
 
