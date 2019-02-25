@@ -176,6 +176,7 @@ function main(data){
   traitement_ojourdhui(df_generale);
   traitement_moyenne();
   historique_grah_qt_tt();
+  historique_grah_poids();
 
 }
 
@@ -333,8 +334,59 @@ function traitement_moyenne(){
 
 }
 
-function historique_grah_qt_tt() {
+function historique_grah_poids() {
   console.log("Dans historique_grah_qt_tt")
+  dfgraph=df_generale;  //On recupere df_generale qui declarer comme variable globale
+
+  var val=[]
+
+  console.log("df_tete:")
+
+  df_poids= dfgraph.s(null, ['jour', 'poids'])
+
+  df_tete.p()
+
+  console.log("grouped:")
+
+
+
+  for ( i=0;i < df_poids.nRow();i++) {     //on parcoure toutes les donnée une a une 
+    if (df_poids.at(i, ['poids'])>0) {
+    // rempli chaque liste
+    xVal=df_poids.at(i, ['jour']);   //df_group.c('jour').s(i).values[0]  or df_group.at(i,'jour')
+    yVal=df_poids.at(i, ['poids']);
+    //xVal=df_group[line].jour
+    //yVal=df_group[line].qte_tt
+    val.push({x: xVal,y: yVal})
+    }
+  }
+
+  var chart = new CanvasJS.Chart("chartContainer_qte_tt", {
+      animationEnabled: true,
+      zoomEnabled: true,
+      theme: "light2", // "light1", "light2", "dark1", "dark2"
+      title: {
+          text: "Evolution poids (kg)"
+      },
+      axisY: {
+          title: "poids (kg)",
+          includeZero: false
+      },
+      axisX: {
+          title: "Date"
+      },
+      data: [{
+          type: "line",
+          xValueType: "dateTime",
+          dataPoints: val             
+          
+      }]
+  });
+  chart.render();
+}
+
+function historique_grah_qt_tt() {
+  console.log("Dans historique_grah_poids")
   dfgraph=df_generale;  //On recupere df_generale qui declarer comme variable globale
 
   var val=[]
@@ -363,7 +415,7 @@ function historique_grah_qt_tt() {
     val.push({x: xVal,y: yVal})
   }
 
-  var chart = new CanvasJS.Chart("chartContainer_qte_tt", {
+  var chart = new CanvasJS.Chart("chartContainer_poids", {
       animationEnabled: true,
       zoomEnabled: true,
       theme: "light2", // "light1", "light2", "dark1", "dark2"
@@ -371,7 +423,7 @@ function historique_grah_qt_tt() {
           text: "Evolution quantitée tétée (ml)"
       },
       axisY: {
-          title: "Volume (ml)",
+          title: "qte tété (ml)",
           includeZero: false
       },
       axisX: {
